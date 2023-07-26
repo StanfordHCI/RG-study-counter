@@ -5,5 +5,3 @@ import { initReactGenie } from "reactgenie-lib";
 console.log(DataTemp);
 
 export const reactGenieStore = initReactGenie();
-
-//manul set up here
