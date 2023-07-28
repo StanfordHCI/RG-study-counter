@@ -29,4 +29,4 @@ const DataViewImpl = (props: { name: string}) => {
 }
 
 
-export const DataView = GenieClassInterface((dataTemp: DataTemp) => `${dataTemp.id} DataTemp`, "DataTemp", 1)(DataViewImpl)
+export const DataView = GenieClassInterface( "DataTemp",(dataTemp: DataTemp) => `${dataTemp.id} DataTemp`, 1)(DataViewImpl)
