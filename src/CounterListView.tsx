@@ -1,12 +1,14 @@
 import React from "react";
 import { CounterItemView } from "./CounterItemView";
-import { GenieClassInterface } from "reactgenie-lib"; 
+import {GenieClassInterface} from "reactgenie-lib";
 
-const CounterListViewImpl = (props: { elements: { id: string }[] }) => {
+const CounterListViewImpl = (props:{elements: { id: string }[] }) => {
+    const counters =  props.elements
+
     return (
         <div>
             {
-                props.elements.map((element) => {
+                counters.map((element) => {
                     return <CounterItemView id={element.id} key={element.id}/>
                 })
             }
@@ -14,6 +16,5 @@ const CounterListViewImpl = (props: { elements: { id: string }[] }) => {
     )
 }
 
-export const CounterListView = GenieClassInterface(
-    "Counter[]",
-    "Counters")(CounterListViewImpl)
+export const CounterListView =
+    GenieClassInterface("Counter[]", "Counter List")(CounterListViewImpl)

@@ -1,60 +1,55 @@
-import {AppNavigator} from '../App';
-import {Counter} from '../genie/Counter';
-import React from 'react';
-import {GenieClassInterface, genieDispatch, useGenieSelector} from 'reactgenie-lib';
-// import {commonStyles, textStyles} from './commonStyles';
+import React from "react";
+import {GenieClassInterface, useGenieSelector} from "reactgenie-lib";
+import {Counter} from "../genie/Counter";
+import {AppNavigator} from "../App";
 
-const EditCounterViewImpl = (props: { id: string }) => {
-    const counter: Counter = useGenieSelector(() => {
+//implementation
+const EditCounterViewImpl = (props:{ id : string}) => {//pass the id to EditCounterView
+    const counter =  useGenieSelector(() => {//get counter by id
         return Counter.GetObject(props);
     });
 
     return (
         <div>
             <div >
-                <div >
-                    <label>Title </label>
-                    <input type='text' size={20} value={counter.name}
-                           onChange={(e) => counter.name = e.target.value}></input>
-                    <label>Description </label>
-                    <input type='text' size={20} value={counter.type}
-                           onChange={(e) => counter.type = e.target.value
-                           }></input>
-                </div>
-
+                <label>Title </label>
+                <input type='text' size={20} value={counter.name}
+                       onChange={(e) => counter.name = e.target.value}></input>
+                <label>Description </label>
+                <input type='text' size={20} value={counter.type}
+                       onChange={(e) => counter.type = e.target.value}></input>
+                <label>Count </label>
+                <input type='number' value={counter.count}
+                       onChange={(e) => counter.count = parseInt(e.target.value)}></input>
+            </div>
                 {
-                    !counter.created?
-                        <div >
+                    !counter.created? //if counter is not created, show add counter button
+                        <div>
                             <button onClick={() => {
                                 counter.created = true;
                                 AppNavigator.pop();
                             }}>Add Counter</button>
                             <button onClick={() => {
-                                counter.deleteCounter();
+                                counter.delete();
                                 AppNavigator.pop();
                             }}>Cancel</button>
-
                         </div>
                         :
-                        <div >
+                        <div>
+                            <button onClick={() => AppNavigator.pop()}>Save Counter</button>
                             <button onClick={() => {
+                                counter.delete();
                                 AppNavigator.pop();
-                            }}>Save</button>
-                            <button onClick={() => {
-                                AppNavigator.pop();
-                                counter.deleteCounter();
-                            }}>Delete</button>
+                            }}>Delete Counter</button>
                         </div>
                 }
 
-            </div>
         </div>
     );
 };
-
+//binding
 export const EditCounterView = GenieClassInterface(
-    'Counter',
-    'Create a Counter',
+    "Counter",
+    "Create a Counter",
     (target: Counter) => target.created ? -1 : 1
-)(EditCounterViewImpl);
-
+)(EditCounterViewImpl)

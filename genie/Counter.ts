@@ -1,10 +1,9 @@
-import { GenieClass, DataClass, GenieKey, GenieProperty, GenieFunction, int } from "reactgenie-lib";
+import {GenieClass, DataClass, GenieKey, GenieProperty, int, GenieFunction} from "reactgenie-lib";
 
 @GenieClass("A counter example")
 export class Counter extends DataClass{
-    //DataClass need a Key
     @GenieKey
-    public id: string;
+    public id:string;
 
     @GenieProperty()
     public name: string;
@@ -12,11 +11,11 @@ export class Counter extends DataClass{
     public type: string;
     @GenieProperty()
     public count: int;
-
     @GenieProperty()
     public created: boolean;
 
-    constructor({id, name, type, count=0, created}:{id: string, name: string, type: string, count?: int, created: boolean}) {
+    constructor({id, name, type, count = 0, created}:
+                    {id: string, name: string, type: string, count?: int, created:boolean}) {
         super({})
         this.id = id;
         this.name = name;
@@ -25,25 +24,17 @@ export class Counter extends DataClass{
         this.created = created;
     }
 
-    //Create Function
     @GenieFunction()
-    static CreateCounter({name, type, count=0, created}: {name: string, type: string, count?: int, created: boolean}): Counter {
-      const id = Counter.All().length.toString();
-      Counter.CreateObject({id: id, name: name, type: type, count: count, created: created})
-      return Counter.GetObject({id: id});
+    static CreateCounter({name, type, count=0, created}:
+                             {name:string, type:string, count?:int, created:boolean}): Counter {
+        const id = Counter.All().length.toString();
+        return Counter.CreateObject({id: id, name: name, type: type, count: count, created: created})
     }
 
-    //Initialization
     static setup() {
-        Counter.CreateCounter({name: "apple", type: "fruit", created: true});
-        Counter.CreateCounter({name: "orange", type: "fruit", created: true});
-        Counter.CreateCounter({name: "potato", type: "vegetable", created: true});
-    }
-
-    //Your own functions
-    @GenieFunction()
-    deleteCounter(): void {
-        Counter.DeleteObject({id:this.id});
+        Counter.CreateCounter({name:"apple", type:"fruit",created:true});
+        Counter.CreateCounter({name:"orange", type:"fruit", created:true});
+        Counter.CreateCounter({name:"potato", type:"vegetable", created:true});
     }
 
     @GenieFunction()
@@ -54,6 +45,11 @@ export class Counter extends DataClass{
     @GenieFunction()
     decrement(): void {
         this.count -= 1;
+    }
+
+    @GenieFunction()
+    delete(): void {
+        Counter.DeleteObject({id: this.id});
     }
 
     static Examples = [
@@ -70,4 +66,3 @@ export class Counter extends DataClass{
             example_parsed: 'Counter.All().matching(field: .type, value: "fruit").increment()',
         }]
 }
-

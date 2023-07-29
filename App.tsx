@@ -1,19 +1,16 @@
 import React from "react";
 import {Provider} from "react-redux";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {StackNavigationOptions} from "@react-navigation/stack/lib/typescript/src/types";
-import {CardStyleInterpolators, createStackNavigator, HeaderStyleInterpolators} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
+import {cardStyle, modalStyle} from "./src/commonStyles";
 
 import ENV from "./config";
 import {reactGenieStore} from "./store";
 import {ModalityProvider} from "reactgenie-lib";
 import {EditCounterView} from "./src/EditCounterView";
 import {MainView} from "./src/MainView";
-import {View} from "react-native";
-
 
 export let AppNavigator: any = null;
-
 type Props = NativeStackScreenProps<any, any>
 
 const CounterTab = ({route, navigation}: Props) => {
@@ -30,32 +27,13 @@ const EditCounterTab = ({route, navigation}: Props) => {
     )
 }
 
-const cardStyle: StackNavigationOptions = {
-    presentation: 'card',
-    animationEnabled: true,
-    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
-    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-}
-
-const modalStyle: StackNavigationOptions = {
-    presentation: 'modal',
-    animationEnabled: true,
-    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
-    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
-    headerShown: false,
-    animationTypeForReplace: 'pop',
-}
-
 const App = () => {
     let CounterStack = () => {
         let CounterNavigator = createStackNavigator();
         return (
-            <CounterNavigator.Navigator screenOptions={{
-                headerShown: true
-            }}>
+            <CounterNavigator.Navigator screenOptions={{headerShown: true}}>
                 <CounterNavigator.Screen name="Counters" component={CounterTab} options={cardStyle}/>
                 <CounterNavigator.Screen name="EditCounter" component={EditCounterTab} options={modalStyle}/>
-
             </CounterNavigator.Navigator>
         );
     }
