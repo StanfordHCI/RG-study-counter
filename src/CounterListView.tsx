@@ -6,7 +6,7 @@ const CounterListViewImpl = (props:{elements: { id: string }[] }) => { //pass th
     const counters =  props.elements
 
     return (
-        <div>
+        <div style={{margin:10}}>
             {
                 counters.map((element) => {
                     return <CounterItemView id={element.id} key={element.id}/>

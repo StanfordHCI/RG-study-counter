@@ -13,11 +13,12 @@ export const MainView = () => {
     return (
         <View>
             <View >
-                <button onClick={() => {
+                <button style={{marginLeft:10, marginRight:10,marginTop:10,fontSize:20}}
+                onClick={() => {
                     //create a new counter to edit
                     const counter = Counter.CreateCounter({name: "", type: "default",created: false});
                     AppNavigator.push('EditCounter', counter)
-                }}>Add New Timer</button>
+                }}>Add New Counter</button>
             </View>
 
             <CounterListView elements={allCounters}/>

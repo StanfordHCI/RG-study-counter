@@ -1,5 +1,6 @@
 import React from "react";
-import {Pressable} from "react-native";
+
+import {Pressable, Text, View} from "react-native";
 import {GenieClassInterface, useGenieSelector} from "reactgenie-lib";
 import {Counter} from "../genie/Counter";
 import {AppNavigator} from "../App";
@@ -12,12 +13,17 @@ const CounterItemViewImpl = (props: {id:string}) => { //pass the id to CounterIt
     return (
         <div>
             <Pressable onPress={() => {AppNavigator.push('EditCounter', {id: props.id})}}>
-                <label>[{counter.type}]</label> <br/> <label>{counter.name}: </label> <br/> <label> {counter.count}</label>
+                <View style={{margin:5,}}>
+                    <Text style={{fontSize:20}}>{'['+counter.type+']'}</Text>
+                    <Text style={{fontSize:20}}>{counter.name} </Text>
+                    <Text style={{fontSize:20}} >{counter.count}</Text>
+                </View>
+            
             </Pressable>
-            <div>
+            
                 <button onClick={() => counter.increment()}>+</button>
                 <button onClick={() => counter.decrement()}>-</button>
-            </div>
+            
         </div>
     )
 }

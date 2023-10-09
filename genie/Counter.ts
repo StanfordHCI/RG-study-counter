@@ -30,7 +30,7 @@ export class Counter extends DataClass{
     }
 
     static setup() {
-        Counter.CreateCounter({name:"apple", type:"fruit",created:true});
+        // Counter.CreateCounter({name:"apple", type:"fruit",created:true});
         Counter.CreateCounter({name:"orange", type:"fruit", created:true});
         Counter.CreateCounter({name:"potato", type:"vegetable", created:true});
     }
